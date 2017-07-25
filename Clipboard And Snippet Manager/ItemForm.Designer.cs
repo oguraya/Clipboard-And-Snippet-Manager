@@ -28,65 +28,65 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.bodyTextBox = new System.Windows.Forms.TextBox();
             this.OKButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.modeComboBox = new System.Windows.Forms.ComboBox();
+            this.nameTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.placeholderCheckBox = new System.Windows.Forms.CheckBox();
+            this.helperComboBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox1
+            // bodyTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 62);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.textBox1.Size = new System.Drawing.Size(544, 292);
-            this.textBox1.TabIndex = 0;
+            this.bodyTextBox.Location = new System.Drawing.Point(12, 62);
+            this.bodyTextBox.Multiline = true;
+            this.bodyTextBox.Name = "bodyTextBox";
+            this.bodyTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.bodyTextBox.Size = new System.Drawing.Size(544, 292);
+            this.bodyTextBox.TabIndex = 0;
             // 
             // OKButton
             // 
+            this.OKButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OKButton.Location = new System.Drawing.Point(400, 360);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
             this.OKButton.TabIndex = 1;
             this.OKButton.Text = "追加";
             this.OKButton.UseVisualStyleBackColor = true;
+            this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
             // 
             // CancelButton
             // 
+            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CancelButton.Location = new System.Drawing.Point(481, 360);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
             this.CancelButton.TabIndex = 2;
             this.CancelButton.Text = "キャンセル";
             this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // comboBox1
+            // modeComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "標準",
-            "キー送信",
-            "powershell",
-            ""});
-            this.comboBox1.Location = new System.Drawing.Point(435, 5);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 23);
-            this.comboBox1.TabIndex = 3;
+            this.modeComboBox.FormattingEnabled = true;
+            this.modeComboBox.Location = new System.Drawing.Point(435, 5);
+            this.modeComboBox.Name = "modeComboBox";
+            this.modeComboBox.Size = new System.Drawing.Size(121, 23);
+            this.modeComboBox.TabIndex = 3;
+            this.modeComboBox.SelectedIndexChanged += new System.EventHandler(this.modeComboBox_SelectedIndexChanged);
             // 
-            // textBox2
+            // nameTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(55, 6);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(269, 22);
-            this.textBox2.TabIndex = 4;
+            this.nameTextBox.Location = new System.Drawing.Point(55, 6);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(269, 22);
+            this.nameTextBox.TabIndex = 4;
             // 
             // label1
             // 
@@ -115,23 +115,23 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "登録文:";
             // 
-            // checkBox1
+            // placeholderCheckBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(370, 42);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(186, 19);
-            this.checkBox1.TabIndex = 7;
-            this.checkBox1.Text = "プレースホルダを有効にする";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.placeholderCheckBox.AutoSize = true;
+            this.placeholderCheckBox.Location = new System.Drawing.Point(370, 42);
+            this.placeholderCheckBox.Name = "placeholderCheckBox";
+            this.placeholderCheckBox.Size = new System.Drawing.Size(186, 19);
+            this.placeholderCheckBox.TabIndex = 7;
+            this.placeholderCheckBox.Text = "プレースホルダを有効にする";
+            this.placeholderCheckBox.UseVisualStyleBackColor = true;
             // 
-            // comboBox2
+            // helperComboBox
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(168, 361);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 23);
-            this.comboBox2.TabIndex = 8;
+            this.helperComboBox.FormattingEnabled = true;
+            this.helperComboBox.Location = new System.Drawing.Point(168, 361);
+            this.helperComboBox.Name = "helperComboBox";
+            this.helperComboBox.Size = new System.Drawing.Size(121, 23);
+            this.helperComboBox.TabIndex = 8;
             // 
             // label4
             // 
@@ -148,19 +148,20 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(568, 395);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.helperComboBox);
+            this.Controls.Add(this.placeholderCheckBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.nameTextBox);
+            this.Controls.Add(this.modeComboBox);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.OKButton);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.bodyTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "ItemForm";
             this.Text = "スニペット登録";
+            this.Load += new System.EventHandler(this.ItemForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -168,16 +169,16 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox bodyTextBox;
         private System.Windows.Forms.Button OKButton;
         private System.Windows.Forms.Button CancelButton;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ComboBox modeComboBox;
+        private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.CheckBox placeholderCheckBox;
+        private System.Windows.Forms.ComboBox helperComboBox;
         private System.Windows.Forms.Label label4;
     }
 }
