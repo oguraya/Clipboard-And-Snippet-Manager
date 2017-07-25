@@ -48,7 +48,7 @@
             this.bodyTextBox.Name = "bodyTextBox";
             this.bodyTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.bodyTextBox.Size = new System.Drawing.Size(544, 292);
-            this.bodyTextBox.TabIndex = 0;
+            this.bodyTextBox.TabIndex = 4;
             // 
             // OKButton
             // 
@@ -56,7 +56,7 @@
             this.OKButton.Location = new System.Drawing.Point(400, 360);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
-            this.OKButton.TabIndex = 1;
+            this.OKButton.TabIndex = 5;
             this.OKButton.Text = "追加";
             this.OKButton.UseVisualStyleBackColor = true;
             this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
@@ -67,7 +67,7 @@
             this.CancelButton.Location = new System.Drawing.Point(481, 360);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 2;
+            this.CancelButton.TabIndex = 6;
             this.CancelButton.Text = "キャンセル";
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
@@ -78,7 +78,7 @@
             this.modeComboBox.Location = new System.Drawing.Point(435, 5);
             this.modeComboBox.Name = "modeComboBox";
             this.modeComboBox.Size = new System.Drawing.Size(121, 23);
-            this.modeComboBox.TabIndex = 3;
+            this.modeComboBox.TabIndex = 2;
             this.modeComboBox.SelectedIndexChanged += new System.EventHandler(this.modeComboBox_SelectedIndexChanged);
             // 
             // nameTextBox
@@ -86,7 +86,7 @@
             this.nameTextBox.Location = new System.Drawing.Point(55, 6);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(269, 22);
-            this.nameTextBox.TabIndex = 4;
+            this.nameTextBox.TabIndex = 1;
             // 
             // label1
             // 
@@ -121,7 +121,7 @@
             this.placeholderCheckBox.Location = new System.Drawing.Point(370, 42);
             this.placeholderCheckBox.Name = "placeholderCheckBox";
             this.placeholderCheckBox.Size = new System.Drawing.Size(186, 19);
-            this.placeholderCheckBox.TabIndex = 7;
+            this.placeholderCheckBox.TabIndex = 3;
             this.placeholderCheckBox.Text = "プレースホルダを有効にする";
             this.placeholderCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -131,7 +131,7 @@
             this.helperComboBox.Location = new System.Drawing.Point(168, 361);
             this.helperComboBox.Name = "helperComboBox";
             this.helperComboBox.Size = new System.Drawing.Size(121, 23);
-            this.helperComboBox.TabIndex = 8;
+            this.helperComboBox.TabIndex = 99;
             // 
             // label4
             // 

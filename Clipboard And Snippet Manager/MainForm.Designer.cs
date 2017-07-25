@@ -39,8 +39,12 @@
             this.snippetFolderNodeContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.snippetItemNodeContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.snippetFolderNodeContextMenuStrip.SuspendLayout();
+            this.snippetItemNodeContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // notifyIcon1
@@ -98,21 +102,44 @@
             this.addItemToolStripMenuItem,
             this.addFolderToolStripMenuItem});
             this.snippetFolderNodeContextMenuStrip.Name = "snippetFolderNodeContextMenuStrip";
-            this.snippetFolderNodeContextMenuStrip.Size = new System.Drawing.Size(176, 80);
+            this.snippetFolderNodeContextMenuStrip.Size = new System.Drawing.Size(152, 52);
             // 
             // addItemToolStripMenuItem
             // 
             this.addItemToolStripMenuItem.Name = "addItemToolStripMenuItem";
-            this.addItemToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.addItemToolStripMenuItem.Size = new System.Drawing.Size(151, 24);
             this.addItemToolStripMenuItem.Text = "Add Item";
             this.addItemToolStripMenuItem.Click += new System.EventHandler(this.addItemToolStripMenuItem_Click);
             // 
             // addFolderToolStripMenuItem
             // 
             this.addFolderToolStripMenuItem.Name = "addFolderToolStripMenuItem";
-            this.addFolderToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.addFolderToolStripMenuItem.Size = new System.Drawing.Size(151, 24);
             this.addFolderToolStripMenuItem.Text = "Add Folder";
             this.addFolderToolStripMenuItem.Click += new System.EventHandler(this.addFolderToolStripMenuItem_Click);
+            // 
+            // snippetItemNodeContextMenuStrip
+            // 
+            this.snippetItemNodeContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.snippetItemNodeContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editItemToolStripMenuItem,
+            this.deleteItemToolStripMenuItem});
+            this.snippetItemNodeContextMenuStrip.Name = "snippetItemNodeContextMenuStrip";
+            this.snippetItemNodeContextMenuStrip.Size = new System.Drawing.Size(176, 80);
+            // 
+            // editItemToolStripMenuItem
+            // 
+            this.editItemToolStripMenuItem.Name = "editItemToolStripMenuItem";
+            this.editItemToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.editItemToolStripMenuItem.Text = "Edit Item";
+            this.editItemToolStripMenuItem.Click += new System.EventHandler(this.editItemToolStripMenuItem_Click);
+            // 
+            // deleteItemToolStripMenuItem
+            // 
+            this.deleteItemToolStripMenuItem.Name = "deleteItemToolStripMenuItem";
+            this.deleteItemToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.deleteItemToolStripMenuItem.Text = "Delete Item";
+            this.deleteItemToolStripMenuItem.Click += new System.EventHandler(this.deleteItemToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -128,6 +155,7 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.contextMenuStrip1.ResumeLayout(false);
             this.snippetFolderNodeContextMenuStrip.ResumeLayout(false);
+            this.snippetItemNodeContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -143,6 +171,9 @@
         private System.Windows.Forms.ContextMenuStrip snippetFolderNodeContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem addItemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addFolderToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip snippetItemNodeContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem editItemToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteItemToolStripMenuItem;
     }
 }
 

@@ -120,7 +120,7 @@ namespace Clipboard_And_Snippet_Manager
 
                 TreeNode tn = new TreeNode(item.title);
                 tn.Tag = item;
-
+                tn.ContextMenuStrip = snippetItemNodeContextMenuStrip;
                 treeView1.SelectedNode.Nodes.Add(tn);
 
             }
@@ -130,6 +130,32 @@ namespace Clipboard_And_Snippet_Manager
         private void addFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void editItemToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TreeNode tn = treeView1.SelectedNode;
+
+            if (tn.Tag is TextSnippetItem)
+            {
+                ItemForm itemForm = new ItemForm((TextSnippetItem)tn.Tag);
+                if (itemForm.ShowDialog(this) == DialogResult.OK)
+                {
+                    TextSnippetItem item = itemForm.getItem();
+
+                    tn.Tag = item;
+                    tn.Text = item.title;
+
+                }
+
+            }
+
+        }
+
+        private void deleteItemToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            treeView1.Nodes.Remove(treeView1.SelectedNode);
+            
         }
     }
 }

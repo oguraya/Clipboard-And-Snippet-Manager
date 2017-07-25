@@ -15,6 +15,32 @@ namespace Clipboard_And_Snippet_Manager
         public ItemForm()
         {
             InitializeComponent();
+            
+            OKButton.Text = "追加";
+
+        }
+
+
+        public ItemForm(TextSnippetItem item)
+        {
+            InitializeComponent();
+            
+            nameTextBox.Text = item.title;
+            bodyTextBox.Text = item.body;
+            placeholderCheckBox.Checked = item.usePlaceholder;
+
+            for (int i = 0; i < modeComboBox.Items.Count; i++)
+            {
+                if ((TextSnippetItem.Modes)((ComboItem)modeComboBox.Items[i]).Tag == item.mode)
+                {
+                    modeComboBox.SelectedIndex = i;
+                    break;
+                }
+            }
+
+
+            OKButton.Text = "修正";
+
         }
 
         private void OKButton_Click(object sender, EventArgs e)
