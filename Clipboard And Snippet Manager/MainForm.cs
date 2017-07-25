@@ -57,6 +57,7 @@ namespace Clipboard_And_Snippet_Manager
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             hotKey.Dispose();
+            notifyIcon1.Visible = false;
         }
     }
 }
