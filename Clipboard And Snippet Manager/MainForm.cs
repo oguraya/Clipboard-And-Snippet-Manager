@@ -59,5 +59,15 @@ namespace Clipboard_And_Snippet_Manager
             hotKey.Dispose();
             notifyIcon1.Visible = false;
         }
+
+        private void PreferenceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("未実装");
+        }
+
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

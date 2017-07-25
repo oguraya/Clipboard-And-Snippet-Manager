@@ -32,8 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.設定pToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.終了xToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PreferenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.contextMenuStrip1.SuspendLayout();
@@ -50,22 +50,24 @@
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.設定pToolStripMenuItem,
-            this.終了xToolStripMenuItem});
+            this.PreferenceToolStripMenuItem,
+            this.ExitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(128, 52);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(176, 80);
             // 
-            // 設定pToolStripMenuItem
+            // PreferenceToolStripMenuItem
             // 
-            this.設定pToolStripMenuItem.Name = "設定pToolStripMenuItem";
-            this.設定pToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
-            this.設定pToolStripMenuItem.Text = "設定(&p)";
+            this.PreferenceToolStripMenuItem.Name = "PreferenceToolStripMenuItem";
+            this.PreferenceToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.PreferenceToolStripMenuItem.Text = "設定(&p)";
+            this.PreferenceToolStripMenuItem.Click += new System.EventHandler(this.PreferenceToolStripMenuItem_Click);
             // 
-            // 終了xToolStripMenuItem
+            // ExitToolStripMenuItem
             // 
-            this.終了xToolStripMenuItem.Name = "終了xToolStripMenuItem";
-            this.終了xToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
-            this.終了xToolStripMenuItem.Text = "終了(&x)";
+            this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.ExitToolStripMenuItem.Text = "終了(&x)";
+            this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // treeView1
             // 
@@ -106,8 +108,8 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.ToolStripMenuItem 設定pToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 終了xToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem PreferenceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ExitToolStripMenuItem;
     }
 }
 
