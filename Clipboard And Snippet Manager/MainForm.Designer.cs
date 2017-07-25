@@ -29,18 +29,20 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.treeView1 = new System.Windows.Forms.TreeView();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.設定pToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.終了xToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // notifyIcon1
             // 
             this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
             // 
@@ -52,6 +54,18 @@
             this.終了xToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(128, 52);
+            // 
+            // 設定pToolStripMenuItem
+            // 
+            this.設定pToolStripMenuItem.Name = "設定pToolStripMenuItem";
+            this.設定pToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
+            this.設定pToolStripMenuItem.Text = "設定(&p)";
+            // 
+            // 終了xToolStripMenuItem
+            // 
+            this.終了xToolStripMenuItem.Name = "終了xToolStripMenuItem";
+            this.終了xToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
+            this.終了xToolStripMenuItem.Text = "終了(&x)";
             // 
             // treeView1
             // 
@@ -69,28 +83,18 @@
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // 設定pToolStripMenuItem
-            // 
-            this.設定pToolStripMenuItem.Name = "設定pToolStripMenuItem";
-            this.設定pToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
-            this.設定pToolStripMenuItem.Text = "設定(&p)";
-            // 
-            // 終了xToolStripMenuItem
-            // 
-            this.終了xToolStripMenuItem.Name = "終了xToolStripMenuItem";
-            this.終了xToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
-            this.終了xToolStripMenuItem.Text = "終了(&x)";
-            // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(705, 354);
             this.Controls.Add(this.treeView1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Clipboard And Snippet Manager";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
