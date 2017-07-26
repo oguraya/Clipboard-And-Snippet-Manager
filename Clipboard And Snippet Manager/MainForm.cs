@@ -161,14 +161,20 @@ namespace Clipboard_And_Snippet_Manager
             if(tn.Tag is TextSnippetItem)
             {
                 TextSnippetItem item = (TextSnippetItem)tn.Tag;
-                Clipboard.SetText(item.body);
-                SendKeys.SendWait("^v");
+                string body = item.body;
+                switch (item.mode)
+                {
+                    case TextSnippetItem.Modes.standardText:
+                        Clipboard.SetText(body);
+                        SendKeys.SendWait("^v");
 
-            }
-            else
-            {
-                Clipboard.SetText(tn.Text);
-                SendKeys.SendWait("^v");
+                        break;
+                    case TextSnippetItem.Modes.sendKeys:
+                        SendKeys.SendWait(body);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
