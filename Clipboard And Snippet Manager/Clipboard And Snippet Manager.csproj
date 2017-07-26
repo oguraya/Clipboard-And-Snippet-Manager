@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClipBoardWatcher.cs" />
     <Compile Include="ComboItem.cs" />
     <Compile Include="DynamicJson.cs" />
     <Compile Include="HotKey.cs" />
