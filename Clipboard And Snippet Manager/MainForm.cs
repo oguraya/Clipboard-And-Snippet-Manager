@@ -40,6 +40,9 @@ namespace Clipboard_And_Snippet_Manager
 
         }
 
+        /// <summary>
+        /// ホットキーの登録
+        /// </summary>
         private void setupHotKey()
         {
             hotKey = new HotKey(MOD_KEY.SHIFT, Keys.None, 0.5f);
@@ -47,6 +50,11 @@ namespace Clipboard_And_Snippet_Manager
 
         }
 
+        /// <summary>
+        /// フォームの表示非表示を切り替える
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void toggleVisibule(object sender, EventArgs e)
         {
             if (Visible)
@@ -66,16 +74,31 @@ namespace Clipboard_And_Snippet_Manager
             notifyIcon1.Visible = false;
         }
 
+        /// <summary>
+        /// 通知アイコンの設定をクリックした時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PreferenceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("未実装");
         }
 
+        /// <summary>
+        /// 通知アイコンの終了をクリックした時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// ツリービューのキー打鍵した時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void treeView1_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (null != treeView1.SelectedNode)
@@ -88,11 +111,20 @@ namespace Clipboard_And_Snippet_Manager
             }
         }
 
+        /// <summary>
+        /// ツリービューのノードをダブルクリックした時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             doImpactItem(e.Node);
         }
 
+        /// <summary>
+        /// ノードアイテムを実行する
+        /// </summary>
+        /// <param name="tn"></param>
         private void doImpactItem(TreeNode tn)
         {
             Hide();
@@ -111,6 +143,11 @@ namespace Clipboard_And_Snippet_Manager
             }
         }
 
+        /// <summary>
+        /// ツリービューのフォルダノードに登録されたコンテキストメニューのアイテム追加を選択した時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ItemForm itemForm = new ItemForm();
@@ -127,11 +164,21 @@ namespace Clipboard_And_Snippet_Manager
             
         }
 
+        /// <summary>
+        /// ツリービューのフォルダノードに登録されたコンテキストメニューのフォルダ追加を選択した時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// ツリービューのアイテムノードに登録されたコンテキストメニューのアイテム編集を選択した時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void editItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TreeNode tn = treeView1.SelectedNode;
@@ -152,6 +199,11 @@ namespace Clipboard_And_Snippet_Manager
 
         }
 
+        /// <summary>
+        /// ツリービューのアイテムノードに登録されたコンテキストメニューのアイテム削除を選択した時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void deleteItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             treeView1.Nodes.Remove(treeView1.SelectedNode);
