@@ -188,7 +188,7 @@ namespace Clipboard_And_Snippet_Manager
                 tn.Tag = item;
                 tn.ContextMenuStrip = snippetItemNodeContextMenuStrip;
                 treeView1.SelectedNode.Nodes.Add(tn);
-
+                treeView1.SelectedNode = tn;
             }
             
         }
