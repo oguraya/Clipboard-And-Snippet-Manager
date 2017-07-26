@@ -184,6 +184,7 @@ namespace Clipboard_And_Snippet_Manager
         /// <param name="e"></param>
         private void addItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             ItemForm itemForm = new ItemForm();
             if(itemForm.ShowDialog(this) == DialogResult.OK)
             {
@@ -192,6 +193,7 @@ namespace Clipboard_And_Snippet_Manager
                 TreeNode tn = new TreeNode(item.title);
                 tn.Tag = item;
                 tn.ContextMenuStrip = snippetItemNodeContextMenuStrip;
+
                 treeView1.SelectedNode.Nodes.Add(tn);
                 treeView1.SelectedNode = tn;
             }
@@ -205,6 +207,7 @@ namespace Clipboard_And_Snippet_Manager
         /// <param name="e"></param>
         private void addFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             TreeNode tn = treeView1.SelectedNode.Nodes.Add("New Folder");
             treeView1.SelectedNode = tn;
             tn.BeginEdit();
@@ -267,6 +270,16 @@ namespace Clipboard_And_Snippet_Manager
             else
             {
                 toolStripStatusLabel1.Text = "";
+            }
+        }
+
+        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            // 右クリックでコンテキストメニューが表示されたタイミングではSelectedNodeが古いままなので、
+            // 右クリックでコンテキストメニューが表示される前に、clickされたノードを選択する
+            if (e.Button == MouseButtons.Right)
+            {
+                treeView1.SelectedNode = e.Node;
             }
         }
     }
