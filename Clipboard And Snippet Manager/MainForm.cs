@@ -14,7 +14,9 @@ namespace Clipboard_And_Snippet_Manager
     {
 
         private HotKey hotKey;
+        private HotKey hotKeyPickingFromStack;
 
+        private TreeNode stackRootNode;
         private TreeNode historyRootNode;
         private TreeNode snippetRootNode;
 
@@ -32,6 +34,7 @@ namespace Clipboard_And_Snippet_Manager
             Hide();
             setupHotKey();
 
+            stackRootNode = treeView1.Nodes.Add("Stack");
             historyRootNode = treeView1.Nodes.Add("History");
             snippetRootNode = treeView1.Nodes.Add("Snippet");
 
@@ -46,6 +49,31 @@ namespace Clipboard_And_Snippet_Manager
         {
             hotKey = new HotKey(MOD_KEY.SHIFT, Keys.None, 0.5f);
             hotKey.HotKeyPush += new EventHandler(toggleVisibule);
+
+            hotKeyPickingFromStack = new HotKey(MOD_KEY.CONTROL | MOD_KEY.ALT, Keys.C);
+            hotKeyPickingFromStack.HotKeyPush += new EventHandler(testFunc);
+
+        }
+
+        private void testFunc(object sender, EventArgs e)
+        {
+            if(stackRootNode.Nodes.Count > 0)
+            {
+                TreeNode tn = stackRootNode.Nodes[0];
+                
+                doImpactItem(tn);
+                treeView1.Nodes.Remove(tn);
+            }
+            if (stackRootNode.Nodes.Count > 0)
+            {
+                TreeNode tn = stackRootNode.Nodes[0];
+
+                notifyIcon1.BalloonTipTitle = "次は…";
+                notifyIcon1.BalloonTipText = buildBody(tn);
+                notifyIcon1.ShowBalloonTip(100);
+            }
+
+           
 
         }
 
@@ -149,12 +177,20 @@ namespace Clipboard_And_Snippet_Manager
             doImpactItem(e.Node);
         }
 
+        private string buildBody(TreeNode tn)
+        {
+            TextSnippetItem item = (TextSnippetItem)tn.Tag;
+            string body = item.body;
+            return body;
+        }
+
         /// <summary>
         /// ノードアイテムを実行する
         /// </summary>
         /// <param name="tn"></param>
-        private void doImpactItem(TreeNode tn)
+        private string doImpactItem(TreeNode tn)
         {
+            
             Hide();
 
             if(tn.Tag is TextSnippetItem)
@@ -174,6 +210,12 @@ namespace Clipboard_And_Snippet_Manager
                     default:
                         break;
                 }
+
+                return body;
+            }
+            else
+            {
+                return "";
             }
         }
 
