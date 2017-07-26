@@ -16,7 +16,7 @@ namespace Clipboard_And_Snippet_Manager
         {
             InitializeComponent();
             
-            OKButton.Text = "追加";
+            okButton.Text = "追加";
 
         }
 
@@ -39,7 +39,7 @@ namespace Clipboard_And_Snippet_Manager
             }
 
 
-            OKButton.Text = "修正";
+            okButton.Text = "修正";
 
         }
 

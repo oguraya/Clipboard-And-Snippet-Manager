@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.bodyTextBox = new System.Windows.Forms.TextBox();
-            this.OKButton = new System.Windows.Forms.Button();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.okButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.modeComboBox = new System.Windows.Forms.ComboBox();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -50,27 +50,27 @@
             this.bodyTextBox.Size = new System.Drawing.Size(544, 292);
             this.bodyTextBox.TabIndex = 4;
             // 
-            // OKButton
+            // okButton
             // 
-            this.OKButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.OKButton.Location = new System.Drawing.Point(400, 360);
-            this.OKButton.Name = "OKButton";
-            this.OKButton.Size = new System.Drawing.Size(75, 23);
-            this.OKButton.TabIndex = 5;
-            this.OKButton.Text = "追加";
-            this.OKButton.UseVisualStyleBackColor = true;
-            this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
+            this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.okButton.Location = new System.Drawing.Point(400, 360);
+            this.okButton.Name = "okButton";
+            this.okButton.Size = new System.Drawing.Size(75, 23);
+            this.okButton.TabIndex = 5;
+            this.okButton.Text = "追加";
+            this.okButton.UseVisualStyleBackColor = true;
+            this.okButton.Click += new System.EventHandler(this.OKButton_Click);
             // 
-            // CancelButton
+            // cancelButton
             // 
-            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelButton.Location = new System.Drawing.Point(481, 360);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 6;
-            this.CancelButton.Text = "キャンセル";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.Location = new System.Drawing.Point(481, 360);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 6;
+            this.cancelButton.Text = "キャンセル";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // modeComboBox
             // 
@@ -155,8 +155,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.nameTextBox);
             this.Controls.Add(this.modeComboBox);
-            this.Controls.Add(this.CancelButton);
-            this.Controls.Add(this.OKButton);
+            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.okButton);
             this.Controls.Add(this.bodyTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "ItemForm";
@@ -170,8 +170,8 @@
         #endregion
 
         private System.Windows.Forms.TextBox bodyTextBox;
-        private System.Windows.Forms.Button OKButton;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button okButton;
+        private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.ComboBox modeComboBox;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.Label label1;
