@@ -74,6 +74,7 @@
             // 
             // modeComboBox
             // 
+            this.modeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.modeComboBox.FormattingEnabled = true;
             this.modeComboBox.Location = new System.Drawing.Point(435, 5);
             this.modeComboBox.Name = "modeComboBox";
