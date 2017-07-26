@@ -95,6 +95,35 @@ namespace Clipboard_And_Snippet_Manager
         }
 
         /// <summary>
+        /// ツリービューのノードのラベル編集開始時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void treeView1_BeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
+        {
+            // ルートノードの編集は不可とする
+            if (e.Node.Parent == null)
+            {
+                e.CancelEdit = true;
+            }
+        }
+
+        /// <summary>
+        /// ツリービューのノードのラベル編集終了時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void treeView1_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
+        {
+            // ラベル情報を同期させます
+            if (e.Node.Tag is TextSnippetItem)
+            {
+                TextSnippetItem item = (TextSnippetItem)e.Node.Tag;
+                item.title = e.Node.Text;
+            }
+        }
+
+        /// <summary>
         /// ツリービューのキー打鍵した時のイベントハンドラ
         /// </summary>
         /// <param name="sender"></param>
@@ -171,7 +200,10 @@ namespace Clipboard_And_Snippet_Manager
         /// <param name="e"></param>
         private void addFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            TreeNode tn = treeView1.SelectedNode.Nodes.Add("New Folder");
+            treeView1.SelectedNode = tn;
+            tn.BeginEdit();
+            
         }
 
         /// <summary>
@@ -209,5 +241,7 @@ namespace Clipboard_And_Snippet_Manager
             treeView1.Nodes.Remove(treeView1.SelectedNode);
             
         }
+
+        
     }
 }
