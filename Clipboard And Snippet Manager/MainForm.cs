@@ -30,7 +30,6 @@ namespace Clipboard_And_Snippet_Manager
         private void MainForm_Load(object sender, EventArgs e)
         {
             Hide();
-
             setupHotKey();
 
             historyRootNode = treeView1.Nodes.Add("History");
@@ -248,6 +247,27 @@ namespace Clipboard_And_Snippet_Manager
             
         }
 
-        
+        private void treeView1_BeforeSelect(object sender, TreeViewCancelEventArgs e)
+        {
+         
+               
+        }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            TreeNode tn = treeView1.SelectedNode;
+
+            if (tn != null && tn.Tag is TextSnippetItem)
+            {
+                TextSnippetItem item = (TextSnippetItem)tn.Tag;
+                toolStripStatusLabel1.Text = item.body;
+
+                
+            }
+            else
+            {
+                toolStripStatusLabel1.Text = "";
+            }
+        }
     }
 }
