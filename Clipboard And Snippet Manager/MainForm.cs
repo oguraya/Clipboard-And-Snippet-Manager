@@ -39,7 +39,7 @@ namespace Clipboard_And_Snippet_Manager
 
             stackRootNode = new TreeNodeExStackRoot(1, 8);
             historyRootNode = new TreeNodeExHistoryRoot(0);
-            snippetRootNode = new TreeNodeExSnippetRoot(snippetFolderNodeContextMenuStrip,2);
+            snippetRootNode = new TreeNodeExSnippetRoot(folderNodeContextMenuStrip,2);
 
             treeView1.Nodes.Add(stackRootNode);
             treeView1.Nodes.Add(historyRootNode);
@@ -55,7 +55,7 @@ namespace Clipboard_And_Snippet_Manager
                     
                     if (historyRootNode.Nodes.Count == 0 || historyRootNode.Nodes[0].Text != text)
                     {
-                        TreeNodeExTextItem textItemNode = new TreeNodeExTextItem(new TextSnippetItem(text), snippetItemNodeContextMenuStrip, 5);
+                        TreeNodeExTextItem textItemNode = new TreeNodeExTextItem(new TextSnippetItem(text), itemNodeContextMenuStrip, 5);
                         
                         historyRootNode.Nodes.Insert(0, textItemNode);
                     }
@@ -66,7 +66,7 @@ namespace Clipboard_And_Snippet_Manager
                         {
                             if (stackRootNode.Nodes.Count == 0 || stackRootNode.Nodes[0].Text != text)
                             {
-                                TreeNodeExTextItem textItemNode = new TreeNodeExTextItem(new TextSnippetItem(text), snippetItemNodeContextMenuStrip, 5);
+                                TreeNodeExTextItem textItemNode = new TreeNodeExTextItem(new TextSnippetItem(text), itemNodeContextMenuStrip, 5);
 
                                 stackRootNode.Nodes.Insert(0, textItemNode);
 
@@ -77,6 +77,15 @@ namespace Clipboard_And_Snippet_Manager
                         
                     }
                     
+                }else if (Clipboard.ContainsImage())
+                {
+                    Image img = Clipboard.GetImage();
+                    if (img != null)
+                    {
+                        
+                        TreeNodeExImageItem imageItemNode = new TreeNodeExImageItem(img, 6);
+                        historyRootNode.Nodes.Insert(0, imageItemNode);
+                    }
                 }
             };
         }
@@ -255,6 +264,13 @@ namespace Clipboard_And_Snippet_Manager
                     }
 
                 }
+                else if (tn is TreeNodeExImageItem)
+                {
+                    Hide();
+                    TreeNodeExImageItem imageItemNode = (TreeNodeExImageItem)tn;
+                    Clipboard.SetImage(imageItemNode.clipboardImage);
+
+                }
             }
             finally
             {
@@ -277,7 +293,7 @@ namespace Clipboard_And_Snippet_Manager
             {
                 TextSnippetItem item = itemForm.getItem();
 
-                TreeNodeExTextItem textItemNode = new TreeNodeExTextItem(item, snippetItemNodeContextMenuStrip, 5);
+                TreeNodeExTextItem textItemNode = new TreeNodeExTextItem(item, itemNodeContextMenuStrip, 5);
 
                 treeView1.SelectedNode.Nodes.Add(textItemNode);
                 treeView1.SelectedNode = textItemNode;
@@ -292,7 +308,7 @@ namespace Clipboard_And_Snippet_Manager
         /// <param name="e"></param>
         private void addFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TreeNodeExFolder folderNode = new TreeNodeExFolder("New Folder", snippetFolderNodeContextMenuStrip, 7);
+            TreeNodeExFolder folderNode = new TreeNodeExFolder("New Folder", folderNodeContextMenuStrip, 7);
 
             treeView1.SelectedNode.Nodes.Add(folderNode);
             treeView1.SelectedNode = folderNode;
@@ -351,13 +367,18 @@ namespace Clipboard_And_Snippet_Manager
 
             TreeNode tn = treeView1.SelectedNode;
 
-            if (tn != null && tn is TreeNodeExTextItem)
+            toolStripStatusLabel1.Text = "";
+            toolStripStatusLabel1.Image = null;
+
+            if (tn is TreeNodeExTextItem)
             {
                 toolStripStatusLabel1.Text = ((TreeNodeExTextItem)tn).item.title;
             }
-            else
+            else if(tn is TreeNodeExImageItem)
             {
-                toolStripStatusLabel1.Text = "";
+                toolStripStatusLabel1.ImageScaling = ToolStripItemImageScaling.None;
+
+                toolStripStatusLabel1.Image = ((TreeNodeExImageItem)tn).clipboardImage;
             }
         }
 
@@ -371,7 +392,7 @@ namespace Clipboard_And_Snippet_Manager
             }
         }
 
-        
-        
+
+
     }
 }

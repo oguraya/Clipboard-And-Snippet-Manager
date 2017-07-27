@@ -90,6 +90,7 @@
     <Compile Include="TextSnippetItem.cs" />
     <Compile Include="TreeNodeExFolder.cs" />
     <Compile Include="TreeNodeExHistoryRoot.cs" />
+    <Compile Include="TreeNodeExImageItem.cs" />
     <Compile Include="TreeNodeExSnippetRoot.cs" />
     <Compile Include="TreeNodeExStackRoot.cs" />
     <Compile Include="TreeNodeExTextItem.cs" />
