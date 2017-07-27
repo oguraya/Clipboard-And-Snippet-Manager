@@ -15,7 +15,7 @@ namespace Clipboard_And_Snippet_Manager
         private int disabledImageIndex;
         public TreeNodeExStackRoot(int enabledImageIndex,int disabledImageIndex)
         {
-            this.Text = "Stack";
+            
             this.enabledImageIndex = enabledImageIndex;
             this.disabledImageIndex = disabledImageIndex;
             disable();
@@ -28,6 +28,7 @@ namespace Clipboard_And_Snippet_Manager
             this.ImageIndex = enabledImageIndex;
             this.SelectedImageIndex = enabledImageIndex;
             this.ForeColor = SystemColors.WindowText;
+            this.Text = "Stack[on]";
         }
 
         public void disable()
@@ -36,6 +37,7 @@ namespace Clipboard_And_Snippet_Manager
             this.ImageIndex = disabledImageIndex;
             this.SelectedImageIndex = disabledImageIndex;
             this.ForeColor = SystemColors.ControlDark;
+            this.Text = "Stack[off]";
         }
     }
 }
