@@ -116,6 +116,7 @@ namespace Clipboard_And_Snippet_Manager
             {
                 Show();
                 WindowState = FormWindowState.Normal;
+                Activate();
             }
         }
 
