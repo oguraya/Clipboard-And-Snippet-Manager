@@ -88,7 +88,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextSnippetItem.cs" />
+    <Compile Include="TreeNodeExFolder.cs" />
+    <Compile Include="TreeNodeExHistoryRoot.cs" />
+    <Compile Include="TreeNodeExSnippetRoot.cs" />
     <Compile Include="TreeNodeExStackRoot.cs" />
+    <Compile Include="TreeNodeExTextItem.cs" />
     <Compile Include="TreeNodeUtils.cs" />
     <EmbeddedResource Include="ItemForm.resx">
       <DependentUpon>ItemForm.cs</DependentUpon>

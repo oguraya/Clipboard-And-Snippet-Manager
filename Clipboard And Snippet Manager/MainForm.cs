@@ -20,8 +20,8 @@ namespace Clipboard_And_Snippet_Manager
         private ClipBoardWatcher cbw;
 
         private TreeNodeExStackRoot stackRootNode;
-        private TreeNode historyRootNode;
-        private TreeNode snippetRootNode;
+        private TreeNodeExHistoryRoot historyRootNode;
+        private TreeNodeExSnippetRoot snippetRootNode;
 
         public MainForm()
         {
@@ -38,12 +38,14 @@ namespace Clipboard_And_Snippet_Manager
             setupHotKey();
 
             stackRootNode = new TreeNodeExStackRoot(1, 8);
+            historyRootNode = new TreeNodeExHistoryRoot(0);
+            snippetRootNode = new TreeNodeExSnippetRoot(snippetFolderNodeContextMenuStrip,2);
+
             treeView1.Nodes.Add(stackRootNode);
-            historyRootNode = treeView1.Nodes.Add("history","History",0,0);
-            snippetRootNode = treeView1.Nodes.Add("snippet","Snippet",2,2);
+            treeView1.Nodes.Add(historyRootNode);
+            treeView1.Nodes.Add(snippetRootNode);
 
-            snippetRootNode.ContextMenuStrip = snippetFolderNodeContextMenuStrip;
-
+            
             cbw = new ClipBoardWatcher();
             cbw.DrawClipBoard += (sender2, e2) => {
 
@@ -53,10 +55,9 @@ namespace Clipboard_And_Snippet_Manager
                     
                     if (historyRootNode.Nodes.Count == 0 || historyRootNode.Nodes[0].Text != text)
                     {
-                        TextSnippetItem item = new TextSnippetItem(text);
-                        TreeNode tn = new TreeNode(item.title, 5, 5);
-                        tn.Tag = item;
-                        historyRootNode.Nodes.Insert(0, tn);
+                        TreeNodeExTextItem textItemNode = new TreeNodeExTextItem(new TextSnippetItem(text), snippetItemNodeContextMenuStrip, 5);
+                        
+                        historyRootNode.Nodes.Insert(0, textItemNode);
                     }
 
                     if (stackRootNode.enabled)
@@ -65,12 +66,11 @@ namespace Clipboard_And_Snippet_Manager
                         {
                             if (stackRootNode.Nodes.Count == 0 || stackRootNode.Nodes[0].Text != text)
                             {
-                                TextSnippetItem item = new TextSnippetItem(text);
-                                TreeNode tn = new TreeNode(item.title, 5, 5);
-                                tn.Tag = item;
-                                stackRootNode.Nodes.Insert(0, tn);
+                                TreeNodeExTextItem textItemNode = new TreeNodeExTextItem(new TextSnippetItem(text), snippetItemNodeContextMenuStrip, 5);
 
-                                tn.EnsureVisible();
+                                stackRootNode.Nodes.Insert(0, textItemNode);
+
+                                textItemNode.EnsureVisible();
                             }
                         }
                         
@@ -158,10 +158,10 @@ namespace Clipboard_And_Snippet_Manager
         private void treeView1_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
         {
             // ラベル情報を同期させます
-            if (e.Node.Tag is TextSnippetItem)
+            if (e.Node is TreeNodeExTextItem)
             {
-                TextSnippetItem item = (TextSnippetItem)e.Node.Tag;
-                item.title = e.Node.Text;
+                TreeNodeExTextItem textItemNode = (TreeNodeExTextItem)e.Node;
+                textItemNode.rename(e.Node.Text);
             }
         }
 
@@ -195,12 +195,6 @@ namespace Clipboard_And_Snippet_Manager
 
         }
 
-        private string buildBody(TreeNode tn)
-        {
-            TextSnippetItem item = (TextSnippetItem)tn.Tag;
-            string body = item.body;
-            return body;
-        }
 
         /// <summary>
         /// ノードアイテムを実行する
@@ -223,18 +217,17 @@ namespace Clipboard_And_Snippet_Manager
                         n.enable();
                     }
                 }
-                else if (tn.Tag is TextSnippetItem)
+                else if (tn is TreeNodeExTextItem)
                 {
                     Hide();
+                    TreeNodeExTextItem textItemNode = (TreeNodeExTextItem)tn;
 
-                    TextSnippetItem item = (TextSnippetItem)tn.Tag;
-                    string body = item.body;
-                    switch (item.mode)
+                    string body = textItemNode.item.body;
+                    switch (textItemNode.item.mode)
                     {
                         case TextSnippetItem.Modes.standardText:
                             Clipboard.SetText(body);
                             SendKeys.SendWait("^v");
-
                             break;
                         case TextSnippetItem.Modes.sendKeys:
                             SendKeys.SendWait(body);
@@ -284,12 +277,10 @@ namespace Clipboard_And_Snippet_Manager
             {
                 TextSnippetItem item = itemForm.getItem();
 
-                TreeNode tn = new TreeNode(item.title,5,5);
-                tn.Tag = item;
-                tn.ContextMenuStrip = snippetItemNodeContextMenuStrip;
+                TreeNodeExTextItem textItemNode = new TreeNodeExTextItem(item, snippetItemNodeContextMenuStrip, 5);
 
-                treeView1.SelectedNode.Nodes.Add(tn);
-                treeView1.SelectedNode = tn;
+                treeView1.SelectedNode.Nodes.Add(textItemNode);
+                treeView1.SelectedNode = textItemNode;
             }
             
         }
@@ -301,10 +292,11 @@ namespace Clipboard_And_Snippet_Manager
         /// <param name="e"></param>
         private void addFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TreeNode tn = new TreeNode("New Folder", 7, 7);
-            treeView1.SelectedNode.Nodes.Add(tn);
-            treeView1.SelectedNode = tn;
-            tn.BeginEdit();
+            TreeNodeExFolder folderNode = new TreeNodeExFolder("New Folder", snippetFolderNodeContextMenuStrip, 7);
+
+            treeView1.SelectedNode.Nodes.Add(folderNode);
+            treeView1.SelectedNode = folderNode;
+            folderNode.BeginEdit();
             
         }
 
@@ -317,16 +309,13 @@ namespace Clipboard_And_Snippet_Manager
         {
             TreeNode tn = treeView1.SelectedNode;
 
-            if (tn.Tag is TextSnippetItem)
+            if (tn is TreeNodeExTextItem)
             {
-                ItemForm itemForm = new ItemForm((TextSnippetItem)tn.Tag);
+                TreeNodeExTextItem textItemNode = (TreeNodeExTextItem)tn;
+                ItemForm itemForm = new ItemForm(textItemNode.item);
                 if (itemForm.ShowDialog(this) == DialogResult.OK)
                 {
-                    TextSnippetItem item = itemForm.getItem();
-
-                    tn.Tag = item;
-                    tn.Text = item.title;
-
+                    textItemNode.item = itemForm.getItem();
                 }
 
             }
@@ -350,16 +339,21 @@ namespace Clipboard_And_Snippet_Manager
                
         }
 
+        /// <summary>
+        /// ノードが選択された時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
+
+            // ステータスバーに選択されたアイテムの内容を表示する
+
             TreeNode tn = treeView1.SelectedNode;
 
-            if (tn != null && tn.Tag is TextSnippetItem)
+            if (tn != null && tn is TreeNodeExTextItem)
             {
-                TextSnippetItem item = (TextSnippetItem)tn.Tag;
-                toolStripStatusLabel1.Text = item.body;
-
-                
+                toolStripStatusLabel1.Text = ((TreeNodeExTextItem)tn).item.title;
             }
             else
             {
