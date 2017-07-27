@@ -83,7 +83,7 @@
             // treeView1
             // 
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.ImageIndex = 0;
+            this.treeView1.ImageIndex = 7;
             this.treeView1.ImageList = this.imageList1;
             this.treeView1.LabelEdit = true;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
@@ -101,9 +101,17 @@
             // 
             // imageList1
             // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "icon_113040_32.png");
+            this.imageList1.Images.SetKeyName(1, "icon_157960_32.png");
+            this.imageList1.Images.SetKeyName(2, "icon_100590_32.png");
+            this.imageList1.Images.SetKeyName(3, "icon_149310_32.png");
+            this.imageList1.Images.SetKeyName(4, "icon_149340_32.png");
+            this.imageList1.Images.SetKeyName(5, "icon_152130_32.png");
+            this.imageList1.Images.SetKeyName(6, "icon_001670_32.png");
+            this.imageList1.Images.SetKeyName(7, "icon_000180_32.png");
+            this.imageList1.Images.SetKeyName(8, "icon_157960_32_off.png");
             // 
             // snippetFolderNodeContextMenuStrip
             // 

@@ -13,10 +13,13 @@ namespace Clipboard_And_Snippet_Manager
     public partial class MainForm : Form
     {
 
-        private HotKey hotKey;
-        private HotKey hotKeyPickingFromStack;
+        private bool runningItem = false;
 
-        private TreeNode stackRootNode;
+        private HotKey hotKey;
+
+        private ClipBoardWatcher cbw;
+
+        private TreeNodeExStackRoot stackRootNode;
         private TreeNode historyRootNode;
         private TreeNode snippetRootNode;
 
@@ -34,12 +37,48 @@ namespace Clipboard_And_Snippet_Manager
             Hide();
             setupHotKey();
 
-            stackRootNode = treeView1.Nodes.Add("Stack");
-            historyRootNode = treeView1.Nodes.Add("History");
-            snippetRootNode = treeView1.Nodes.Add("Snippet");
+            stackRootNode = new TreeNodeExStackRoot(1, 8);
+            treeView1.Nodes.Add(stackRootNode);
+            historyRootNode = treeView1.Nodes.Add("history","History",0,0);
+            snippetRootNode = treeView1.Nodes.Add("snippet","Snippet",2,2);
 
             snippetRootNode.ContextMenuStrip = snippetFolderNodeContextMenuStrip;
 
+            cbw = new ClipBoardWatcher();
+            cbw.DrawClipBoard += (sender2, e2) => {
+
+                if (Clipboard.ContainsText())
+                {
+                    string text = Clipboard.GetText();
+                    
+                    if (historyRootNode.Nodes.Count == 0 || historyRootNode.Nodes[0].Text != text)
+                    {
+                        TextSnippetItem item = new TextSnippetItem(text);
+                        TreeNode tn = new TreeNode(item.title, 5, 5);
+                        tn.Tag = item;
+                        historyRootNode.Nodes.Insert(0, tn);
+                    }
+
+                    if (stackRootNode.enabled)
+                    {
+                        if (!runningItem)
+                        {
+                            if (stackRootNode.Nodes.Count == 0 || stackRootNode.Nodes[0].Text != text)
+                            {
+                                TextSnippetItem item = new TextSnippetItem(text);
+                                TreeNode tn = new TreeNode(item.title, 5, 5);
+                                tn.Tag = item;
+                                stackRootNode.Nodes.Insert(0, tn);
+
+                                tn.EnsureVisible();
+                            }
+                        }
+                        
+                        
+                    }
+                    
+                }
+            };
         }
 
         /// <summary>
@@ -49,31 +88,7 @@ namespace Clipboard_And_Snippet_Manager
         {
             hotKey = new HotKey(MOD_KEY.SHIFT, Keys.None, 0.5f);
             hotKey.HotKeyPush += new EventHandler(toggleVisibule);
-
-            hotKeyPickingFromStack = new HotKey(MOD_KEY.CONTROL | MOD_KEY.ALT, Keys.C);
-            hotKeyPickingFromStack.HotKeyPush += new EventHandler(testFunc);
-
-        }
-
-        private void testFunc(object sender, EventArgs e)
-        {
-            if(stackRootNode.Nodes.Count > 0)
-            {
-                TreeNode tn = stackRootNode.Nodes[0];
-                
-                doImpactItem(tn);
-                treeView1.Nodes.Remove(tn);
-            }
-            if (stackRootNode.Nodes.Count > 0)
-            {
-                TreeNode tn = stackRootNode.Nodes[0];
-
-                notifyIcon1.BalloonTipTitle = "次は…";
-                notifyIcon1.BalloonTipText = buildBody(tn);
-                notifyIcon1.ShowBalloonTip(100);
-            }
-
-           
+            
 
         }
 
@@ -174,7 +189,10 @@ namespace Clipboard_And_Snippet_Manager
         /// <param name="e"></param>
         private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
+            
             doImpactItem(e.Node);
+             
+
         }
 
         private string buildBody(TreeNode tn)
@@ -188,35 +206,69 @@ namespace Clipboard_And_Snippet_Manager
         /// ノードアイテムを実行する
         /// </summary>
         /// <param name="tn"></param>
-        private string doImpactItem(TreeNode tn)
+        private void doImpactItem(TreeNode tn)
         {
-            
-            Hide();
-
-            if(tn.Tag is TextSnippetItem)
+            runningItem = true;
+            try
             {
-                TextSnippetItem item = (TextSnippetItem)tn.Tag;
-                string body = item.body;
-                switch (item.mode)
+                if (tn is TreeNodeExStackRoot)
                 {
-                    case TextSnippetItem.Modes.standardText:
-                        Clipboard.SetText(body);
-                        SendKeys.SendWait("^v");
-
-                        break;
-                    case TextSnippetItem.Modes.sendKeys:
-                        SendKeys.SendWait(body);
-                        break;
-                    default:
-                        break;
+                    TreeNodeExStackRoot n = (TreeNodeExStackRoot)tn;
+                    if (n.enabled)
+                    {
+                        n.disable();
+                    }
+                    else
+                    {
+                        n.enable();
+                    }
                 }
+                else if (tn.Tag is TextSnippetItem)
+                {
+                    Hide();
 
-                return body;
+                    TextSnippetItem item = (TextSnippetItem)tn.Tag;
+                    string body = item.body;
+                    switch (item.mode)
+                    {
+                        case TextSnippetItem.Modes.standardText:
+                            Clipboard.SetText(body);
+                            SendKeys.SendWait("^v");
+
+                            break;
+                        case TextSnippetItem.Modes.sendKeys:
+                            SendKeys.SendWait(body);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    // スタックノードのアイテムの場合、選択アイテムの移動と削除を行う
+                    if (TreeNodeUtils.findRootNode(tn) == stackRootNode)
+                    {
+                        if (tn.NextNode != null)
+                        {
+                            treeView1.SelectedNode = tn.NextNode;
+                        }
+                        else if (tn.PrevNode != null)
+                        {
+                            treeView1.SelectedNode = tn.PrevNode;
+                        }
+                        else
+                        {
+                            treeView1.SelectedNode = tn.Parent;
+                        }
+                        tn.Remove();
+                    }
+
+                }
             }
-            else
+            finally
             {
-                return "";
+                runningItem = false;
             }
+            
+            
         }
 
         /// <summary>
@@ -232,7 +284,7 @@ namespace Clipboard_And_Snippet_Manager
             {
                 TextSnippetItem item = itemForm.getItem();
 
-                TreeNode tn = new TreeNode(item.title);
+                TreeNode tn = new TreeNode(item.title,5,5);
                 tn.Tag = item;
                 tn.ContextMenuStrip = snippetItemNodeContextMenuStrip;
 
@@ -249,8 +301,8 @@ namespace Clipboard_And_Snippet_Manager
         /// <param name="e"></param>
         private void addFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            TreeNode tn = treeView1.SelectedNode.Nodes.Add("New Folder");
+            TreeNode tn = new TreeNode("New Folder", 7, 7);
+            treeView1.SelectedNode.Nodes.Add(tn);
             treeView1.SelectedNode = tn;
             tn.BeginEdit();
             
@@ -324,5 +376,8 @@ namespace Clipboard_And_Snippet_Manager
                 treeView1.SelectedNode = e.Node;
             }
         }
+
+        
+        
     }
 }

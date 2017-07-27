@@ -25,6 +25,16 @@ namespace Clipboard_And_Snippet_Manager
 
         }
 
+        public TextSnippetItem(string body)
+        {
+            title = body;
+            mode = Modes.standardText;
+            usePlaceholder = false;
+            this.body = body;
+            timestamp = DateTime.Now;
+
+        }
+
         public TextSnippetItem(string title,string body)
         {
             this.title = title;
